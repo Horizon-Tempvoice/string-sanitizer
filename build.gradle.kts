@@ -1,9 +1,11 @@
 plugins {
     kotlin("jvm") version "2.3.0"
+    `maven-publish`
+    `java-library`
 }
 
 group = "me.diamondforge"
-version = "1.0-SNAPSHOT"
+version = System.getenv("RELEASE_VERSION") ?: "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -19,4 +21,39 @@ kotlin {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+java {
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenKotlin") {
+            from(components["java"])
+
+            groupId = project.group.toString()
+            artifactId = "string-sanitizer"
+            version = project.version.toString()
+        }
+    }
+
+    repositories {
+        val isSnapshot = project.version.toString().endsWith("-SNAPSHOT")
+        val repoUrl = if (isSnapshot)
+            System.getenv("REPO_SNAPSHOT_URL")
+        else
+            System.getenv("REPO_RELEASE_URL")
+
+        if (!repoUrl.isNullOrBlank()) {
+            maven {
+                name = "Reposilite"
+                url = uri(repoUrl)
+                credentials {
+                    username = System.getenv("REPO_USERNAME")
+                    password = System.getenv("REPO_PASSWORD")
+                }
+            }
+        }
+    }
 }
