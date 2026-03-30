@@ -1,6 +1,6 @@
-# StringCensor
+# Sanitizer
 
-`StringCensor` is a robust Kotlin library designed to normalize strings and censor blacklisted words. It features advanced homoglyph conversion, character substitution handling, and flexible wildcard-based matching to prevent bypasses.
+`Sanitizer` is a robust Kotlin library designed to normalize strings and censor blacklisted words. It features advanced homoglyph conversion, character substitution handling, and flexible wildcard-based matching to prevent bypasses.
 
 ## Features
 
@@ -15,7 +15,7 @@
 ### Basic Censoring
 
 ```kotlin
-val censor = StringCensor()
+val censor = Sanitizer()
 val text = "i like pineapple on pizza."
 val blacklist = listOf("*pple", "pizz*", "on")
 
@@ -28,7 +28,7 @@ val censored = censor.replace(text, blacklist, replacement = "*")
 The library excels at catching bypass attempts using special characters or homoglyphs.
 
 ```kotlin
-val censor = StringCensor()
+val censor = Sanitizer()
 val text = "Don't bypass it like t-h.1.$, thhhhiiiisss, or 𝔱𝔥𝔦𝔰."
 val blacklist = listOf("this")
 
@@ -41,7 +41,7 @@ val censored = censor.replace(text, blacklist, replacement = "*", strict = true)
 You can also use the `transform` and `convert` methods independently to clean up strings.
 
 ```kotlin
-val censor = StringCensor()
+val censor = Sanitizer()
 val clean = censor.convert("ỆᶍǍᶆṔƚÉ ℭ𝔩𝔢𝔞𝔫", strict = true)
 // Output: "ExAmPlE Clean"
 
