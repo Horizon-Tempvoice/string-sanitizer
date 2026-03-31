@@ -10,6 +10,53 @@
 - **Custom Replacements:** Ability to use specific replacement characters or a random mix of symbols (`@`, `*`, `#`).
 - **Strict/Non-strict Modes:** Toggle homoglyph conversion based on your needs.
 
+## Installation
+
+Add the DiamondForge repository and the dependency to your build file.
+
+### Gradle (Kotlin DSL)
+
+```kotlin
+repositories {
+    maven("https://m2.diamondforge.me/releases")
+}
+
+dependencies {
+    implementation("me.diamondforge:string-sanitizer:VERSION")
+}
+```
+
+### Gradle (Groovy)
+
+```groovy
+repositories {
+    maven { url 'https://m2.diamondforge.me/releases' }
+}
+
+dependencies {
+    implementation 'me.diamondforge:string-sanitizer:VERSION'
+}
+```
+
+### Maven
+
+```xml
+<repositories>
+    <repository>
+        <id>diamondforge-labs</id>
+        <url>https://m2.diamondforge.me/releases</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>me.diamondforge</groupId>
+    <artifactId>string-sanitizer</artifactId>
+    <version>VERSION</version>
+</dependency>
+```
+
+Replace `VERSION` with the latest release version.
+
 ## Usage
 
 ### Basic Censoring
